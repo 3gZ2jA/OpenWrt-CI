@@ -118,18 +118,18 @@ jobs:
           CONFIG_TARGET_x86_64_Generic=y
           # CONFIG_TARGET_IMAGES_GZIP is not set
           # CONFIG_TARGET_ROOTFS_EXT4FS is not set
-          CONFIG_LUCI_LANG_zh-cn=y
-          CONFIG_PACKAGE_default-settings=y
+          #CONFIG_LUCI_LANG_zh-cn=y
+          #CONFIG_PACKAGE_default-settings=y
           # CONFIG_PACKAGE_dnsmasq is not set
-          CONFIG_PACKAGE_dnsmasq-full=y
-          CONFIG_PACKAGE_dnsmasq_full_auth=y
-          CONFIG_PACKAGE_dnsmasq_full_conntrack=y
-          CONFIG_PACKAGE_dnsmasq_full_dhcp=y
-          CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
-          CONFIG_PACKAGE_dnsmasq_full_dnssec=y
-          CONFIG_PACKAGE_dnsmasq_full_ipset=y
-          CONFIG_PACKAGE_dnsmasq_full_noid=y
-          CONFIG_PACKAGE_dnsmasq_full_tftp=y
+          #CONFIG_PACKAGE_dnsmasq-full=y
+          #CONFIG_PACKAGE_dnsmasq_full_auth=y
+          #CONFIG_PACKAGE_dnsmasq_full_conntrack=y
+          #CONFIG_PACKAGE_dnsmasq_full_dhcp=y
+          #CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
+          #CONFIG_PACKAGE_dnsmasq_full_dnssec=y
+          #CONFIG_PACKAGE_dnsmasq_full_ipset=y
+          #CONFIG_PACKAGE_dnsmasq_full_noid=y
+          #CONFIG_PACKAGE_dnsmasq_full_tftp=y
           EOF
 
           # 固件压缩:
