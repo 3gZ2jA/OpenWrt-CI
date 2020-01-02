@@ -32,6 +32,7 @@ jobs:
           ref: master
 
       - name: Show disk space
+        if: success()
         run: |
           echo "======================="
           echo "Space usage:"
@@ -40,6 +41,7 @@ jobs:
           echo "======================="
 
       - name: Space cleanup
+        if: success()
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -60,6 +62,7 @@ jobs:
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
 
       - name: Show disk space
+        if: success()
         run: |
           echo "======================="
           echo "Space usage:"
@@ -69,11 +72,13 @@ jobs:
 
 
       - name: Update feeds
+        if: success()
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Generate configuration file
+        if: success()
         run: |
           rm -f ./.config*
           touch ./.config
@@ -258,12 +263,14 @@ jobs:
           make defconfig
 
       - name: Make download
+        if: success()
         run: |
           make download -j8
           find ./dl/ -size -1024c -exec rm -f {} \;
           df -h
 
       - name: Compile firmware
+        if: success()
         run: |
           make -j$(nproc) || make -j1 V=s
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
@@ -281,6 +288,7 @@ jobs:
           du -h --max-depth=1 ./bin
 
       - name: Show disk space
+        if: success()
         run: |
           echo "======================="
           echo "Space usage:"
@@ -289,27 +297,32 @@ jobs:
           echo "======================="
 
       - name: Delete packages
+        if: success()
         run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
 
       - name: Upload artifact
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: targets
           path: ./bin/targets/x86/64/
 
       - name: Upload config.buildinfo
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: config.buildinfo
           path: ./bin/targets/x86/64/config.buildinfo
 
       - name: Upload openwrt-x86-64-combined-squashfs
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: openwrt-x86-64-combined-squashfs
           path: ./bin/targets/x86/64/openwrt-x86-64-combined-squashfs.img
 
       - name: Upload openwrt-x86-64-rootfs-squashfs
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: openwrt-x86-64-rootfs-squashfs
@@ -326,6 +339,7 @@ jobs:
           name: targets
       
       - name: Zip files
+        if: success()
         run: |
           echo "::set-env name=TAG::$(date "+%Y-%m-%dT%H-%M-%S")"
           zip ./targets/config.zip ./targets/config.buildinfo
@@ -333,6 +347,7 @@ jobs:
           zip ./targets/openwrt-x86-64-rootfs-squashfs.zip ./targets/openwrt-x86-64-rootfs-squashfs.img
 
       - name: Create Release
+        if: success()
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -344,6 +359,7 @@ jobs:
           prerelease: false
 
       - name: Upload config
+        if: success()
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.actions }}
@@ -354,6 +370,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload openwrt-x86-64-combined-squashfs
+        if: success()
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.actions }}
@@ -364,6 +381,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload openwrt-x86-64-combined-squashfs
+        if: success()
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.actions }}
