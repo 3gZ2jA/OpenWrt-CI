@@ -13,8 +13,8 @@ on:
   push:
     branches: 
       - master
-  # schedule:
-  #   - cron: 0 20 * * *
+    schedule:
+      - cron: 0 16 * * *
   # release:
   #   types: [published]
 
@@ -118,18 +118,11 @@ jobs:
           CONFIG_TARGET_x86_64_Generic=y
           # CONFIG_TARGET_IMAGES_GZIP is not set
           # CONFIG_TARGET_ROOTFS_EXT4FS is not set
-          #CONFIG_LUCI_LANG_zh-cn=y
-          #CONFIG_PACKAGE_default-settings=y
-          # CONFIG_PACKAGE_dnsmasq is not set
-          #CONFIG_PACKAGE_dnsmasq-full=y
-          #CONFIG_PACKAGE_dnsmasq_full_auth=y
-          #CONFIG_PACKAGE_dnsmasq_full_conntrack=y
-          #CONFIG_PACKAGE_dnsmasq_full_dhcp=y
-          #CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
-          #CONFIG_PACKAGE_dnsmasq_full_dnssec=y
-          #CONFIG_PACKAGE_dnsmasq_full_ipset=y
-          #CONFIG_PACKAGE_dnsmasq_full_noid=y
-          #CONFIG_PACKAGE_dnsmasq_full_tftp=y
+          CONFIG_LUCI_LANG_zh-cn=y
+          CONFIG_PACKAGE_kmod-kvm-amd=y
+          CONFIG_PACKAGE_kmod-kvm-intel=y
+          CONFIG_PACKAGE_kmod-kvm-x86=y
+          CONFIG_PACKAGE_default-settings=y
           EOF
 
           # 固件压缩:
@@ -143,10 +136,12 @@ jobs:
           # EOF
 
           # IPv6支持:
-          # cat >> .config <<EOF
-          # CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
-          # CONFIG_PACKAGE_ipv6helper=y
-          # EOF
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
+          CONFIG_PACKAGE_ip6tables=y
+          CONFIG_PACKAGE_iptables-mod-extra=y
+          CONFIG_PACKAGE_ipv6helper=y
+          EOF
 
           # 多文件系统支持:
           # cat >> .config <<EOF
@@ -168,7 +163,31 @@ jobs:
           # EOF
 
           # 常用LuCI插件选择:
-          # cat >> .config <<EOF
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-app-accesscontrol=y
+          CONFIG_PACKAGE_luci-app-adbyby-plus=y
+          CONFIG_PACKAGE_luci-app-advanced-reboot=y
+          CONFIG_PACKAGE_luci-app-autoreboot=y
+          CONFIG_PACKAGE_luci-app-banip=y
+          CONFIG_PACKAGE_luci-app-commands=y
+          CONFIG_PACKAGE_luci-app-filetransfer=y
+          CONFIG_PACKAGE_luci-app-firewall=y
+          CONFIG_PACKAGE_luci-app-nlbwmon=y
+          CONFIG_PACKAGE_luci-app-openvpn=y
+          CONFIG_PACKAGE_luci-app-openvpn-server=y
+          CONFIG_PACKAGE_luci-app-opkg=y
+          CONFIG_PACKAGE_luci-app-ssr-plus=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
+          CONFIG_PACKAGE_luci-app-statistics=y
+          CONFIG_PACKAGE_luci-app-ttyd=y
+          CONFIG_PACKAGE_luci-app-unblockmusic=y
+          CONFIG_PACKAGE_luci-app-upnp=y
+          CONFIG_PACKAGE_luci-app-vlmcsd=y
+          CONFIG_PACKAGE_luci-app-vnstat=y
+          CONFIG_PACKAGE_luci-app-wol=y
+          CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          CONFIG_PACKAGE_luci-app-xlnetacc=y
+          CONFIG_PACKAGE_luci-base=y
           # CONFIG_PACKAGE_luci-app-adbyby-plus=y
           # CONFIG_PACKAGE_luci-app-aria2=y
           # CONFIG_PACKAGE_luci-app-baidupcs-web=y
@@ -190,23 +209,41 @@ jobs:
           # CONFIG_PACKAGE_luci-app-webadmin=y
           # CONFIG_PACKAGE_luci-app-wireguard=y
           # CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          # EOF
+          EOF
 
           # LuCI主题:
-          # cat >> .config <<EOF
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-theme-bootstrap=y
           # CONFIG_PACKAGE_luci-theme-argon=y
           # CONFIG_PACKAGE_luci-theme-netgear=y
-          # EOF
+          EOF
 
           # 常用软件包:
           cat >> .config <<EOF
-          CONFIG_PACKAGE_curl=y
+          CONFIG_PACKAGE_default-settings=y
+          # CONFIG_PACKAGE_dnsmasq is not set
+          CONFIG_PACKAGE_dnsmasq-full=y
+          CONFIG_PACKAGE_htop=y
+          CONFIG_PACKAGE_ip-full=y
+          CONFIG_PACKAGE_ipset=y
+          CONFIG_PACKAGE_kmod-tcp-bbr=y
           CONFIG_PACKAGE_htop=y
           CONFIG_PACKAGE_nano=y
           CONFIG_PACKAGE_screen=y
           CONFIG_PACKAGE_tree=y
           CONFIG_PACKAGE_vim-fuller=y
           CONFIG_PACKAGE_wget=y
+          CONFIG_PACKAGE_qemu-ga=y
+          CONFIG_PACKAGE_unrar=y
+          CONFIG_PACKAGE_unzip=y
+          CONFIG_PACKAGE_virtio-console-helper=y
+          CONFIG_PACKAGE_vnstat=y
+          CONFIG_PACKAGE_vnstati=y
+          CONFIG_PACKAGE_zip=y
+          CONFIG_PACKAGE_curl=y
+          CONFIG_PACKAGE_gzip=y
+          CONFIG_PACKAGE_nano=y
+          CONFIG_PACKAGE_screen=y
           EOF
 
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
