@@ -280,7 +280,6 @@ jobs:
         with:
           name: targets
       
-
       - name: Zip files
         run: |
           echo "::set-env name=TAG::$(date "+%Y-%m-%dT%H-%M-%S")"
