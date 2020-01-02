@@ -334,6 +334,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
+        if: always()
         uses: actions/download-artifact@v1
         with:
           name: targets
