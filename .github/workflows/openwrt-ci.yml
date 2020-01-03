@@ -14,14 +14,14 @@ on:
     branches: 
       - master
     schedule:
-      - cron: 0 16 * * *
+      - cron: '0 16 * * *'
   # release:
   #   types: [published]
 
 jobs:
 
   build:
-
+    if: always()
     runs-on: ubuntu-latest
 
     steps:
@@ -271,6 +271,7 @@ jobs:
 
       - name: Compile firmware
         if: success()
+        continue-on-error: true
         run: |
           make -j$(nproc) || make -j1 V=s
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
@@ -279,14 +280,12 @@ jobs:
 
       - name: Fix error
         if: failure()
+        continue-on-error: true
         run: |
           mkdir -p ./build_dir/target-x86_64_musl/qemu-4.2.0/ipkg-install/usr/bin
           cp ./build_dir/target-x86_64_musl/qemu-4.2.0/qemu-ga ./build_dir/target-x86_64_musl/qemu-4.2.0/ipkg-install/usr/bin
-
-      - name: Compile firmware
-        if: failure()
-        run: |
           make -j$(nproc) || make -j1 V=s
+          
 
       - name: Show disk space
         if: always()
@@ -298,44 +297,45 @@ jobs:
           echo "======================="
 
       - name: Delete packages
-        if: always()
+        if: success()
         run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
 
       - name: Upload artifact
-        if: always()
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: targets
           path: ./bin/targets/x86/64/
 
       - name: Upload config.buildinfo
-        if: always()
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: config.buildinfo
           path: ./bin/targets/x86/64/config.buildinfo
 
       - name: Upload openwrt-x86-64-combined-squashfs
-        if: always()
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: openwrt-x86-64-combined-squashfs
           path: ./bin/targets/x86/64/openwrt-x86-64-combined-squashfs.img
 
       - name: Upload openwrt-x86-64-rootfs-squashfs
-        if: always()
+        if: success()
         uses: actions/upload-artifact@master
         with:
           name: openwrt-x86-64-rootfs-squashfs
           path: ./bin/targets/x86/64/openwrt-x86-64-rootfs-squashfs.img
 
   release:
+    if: always()
     name: Release
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        if: always()
+        if: success()
         uses: actions/download-artifact@v1
         with:
           name: targets
