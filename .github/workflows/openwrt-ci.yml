@@ -279,7 +279,7 @@ jobs:
           du -h --max-depth=1 ./bin
 
       - name: Fix error
-        if: failure()
+        if: success()
         continue-on-error: true
         run: |
           mkdir -p ./build_dir/target-x86_64_musl/qemu-4.2.0/ipkg-install/usr/bin
