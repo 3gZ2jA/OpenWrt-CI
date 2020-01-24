@@ -52,6 +52,8 @@ define Build/fullimage
 	rm $@.tmp
 endef
 
+DTS_DIR := $(DTS_DIR)/lantiq
+
 # Shared device definition: applies to every defined device
 define Device/Default
   PROFILES = Default
@@ -61,7 +63,7 @@ define Device/Default
   KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | uImage lzma
   FILESYSTEMS := squashfs
   IMAGE_SIZE :=
-  DTS_DIR := $(DTS_DIR)/lantiq
+  SOC := $(DEFAULT_SOC)
   DEVICE_DTS = $$(SOC)_$(1)
   SUPPORTED_DEVICES := $(subst _,$(comma),$(1))
   IMAGES := sysupgrade.bin
@@ -110,10 +112,12 @@ define Device/AVM
 endef
 
 ifeq ($(SUBTARGET),ase)
+DEFAULT_SOC := amazonse
 include amazonse.mk
 endif
 
 ifeq ($(SUBTARGET),xway_legacy)
+DEFAULT_SOC := danube
 include xway_legacy.mk
 endif
 
@@ -124,12 +128,14 @@ endif
 
 
 ifeq ($(SUBTARGET),xrx200)
+DEFAULT_SOC := vr9
 include tp-link.mk
 include vr9.mk
 endif
 
 
 ifeq ($(SUBTARGET),falcon)
+DEFAULT_SOC := falcon
 include falcon.mk
 endif
 
