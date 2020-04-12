@@ -10,9 +10,9 @@
 name: OpenWrt-CI-New
 
 on:
-  push:
-    branches: 
-      - openwrt-19.07
+  #push:
+  #  branches: 
+  #    - openwrt-19.07
   schedule:
     - cron: '0 16 * * *'
   # release:
