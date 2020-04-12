@@ -1,0 +1,46 @@
+#
+# This is free software, lisence use MIT.
+# 
+# Copyright (C) 2019 KFERMercer <KFER.Mercer@gmail.com>
+# 
+# <https://github.com/KFERMercer/OpenWrt-CI>
+#
+
+name: Merge-upstream
+
+on:
+  push:
+    branches: 
+      - openwrt-19.07
+  schedule:
+    - cron: 50/30 * * * *
+
+jobs:
+  merge:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@master
+      with:
+        ref: openwrt-19.07
+        fetch-depth: 0
+        lfs: true
+
+    - name: Set git identity
+      run : |
+        git config --global user.email "lqbz@live.com"
+        git config --global user.name "3gZ2jA"
+
+    - name: Load upstream commits
+      run : |
+        git remote add offical https://github.com/openwrt/openwrt.git
+        git fetch offical
+        git pull offical openwrt-19.07
+
+    - name: Push Commits
+      env:
+        DOWNSTREAM_BRANCH: openwrt-19.07
+      run: git push origin $DOWNSTREAM_BRANCH --tags  
