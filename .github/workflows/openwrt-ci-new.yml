@@ -14,16 +14,20 @@ on:
     branches: 
       - openwrt-19.07
   schedule:
-    - cron: '0 16 * * *'
+    - cron: 0 16 * * *
   # release:
   #   types: [published]
+
+env:
+  TZ: Asia/Shanghai
 
 jobs:
 
   build:
     if: always()
     runs-on: ubuntu-latest
-
+    env:
+      TZ: Asia/Shanghai
     steps:
 
       - name: Checkout
@@ -433,6 +437,8 @@ jobs:
     name: Release
     needs: build
     runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
     steps:
       - name: Download artifact
         if: success()
