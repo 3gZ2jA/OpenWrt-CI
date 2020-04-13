@@ -449,7 +449,7 @@ jobs:
       - name: Zip files
         if: success()
         run: |
-          echo "::set-env name=TAG::$(date "+%Y-%m-%dT%H-%M-%S")"
+          echo "::set-env name=TAG::$(date "+%F/%H-%M-%S")"
           zip ./targets/config.zip ./targets/config.buildinfo
           zip ./targets/openwrt-x86-64-combined-squashfs.zip ./targets/openwrt-x86-64-combined-squashfs.img
           zip ./targets/openwrt-x86-64-rootfs-squashfs.zip ./targets/openwrt-x86-64-rootfs-squashfs.img
