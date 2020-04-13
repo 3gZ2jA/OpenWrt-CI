@@ -315,6 +315,14 @@ jobs:
           CONFIG_PACKAGE_qemu-ga=y
           CONFIG_PACKAGE_zip=y
           CONFIG_PACKAGE_bash=y
+          
+          # CONFIG_PACKAGE_autosamba is not set
+          # CONFIG_PACKAGE_luci-app-samba is not set
+          # CONFIG_PACKAGE_samba36-client is not set
+          # CONFIG_PACKAGE_samba36-net is not set
+          # CONFIG_PACKAGE_samba36-server is not set
+          CONFIG_PACKAGE_autocore=y
+          CONFIG_PACKAGE_automount=y
           EOF
 
           # LuCI主题:
