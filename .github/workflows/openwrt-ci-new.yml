@@ -469,7 +469,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.actions }}
         with:
-          tag_name: openwrt-19.07 ${{ env.TAG }}
+          tag_name: OpenWrt-19.07-${{ env.TAG }}
           release_name: OpenWrt-19.07 Release ${{ env.TAG }}
           draft: false
           prerelease: false
