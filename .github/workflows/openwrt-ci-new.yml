@@ -10,9 +10,9 @@
 name: OpenWrt-CI-New
 
 on:
-  #push:
-  #  branches: 
-  #    - openwrt-19.07
+  push:
+    branches: 
+      - openwrt-19.07
   schedule:
     - cron: '0 16 * * *'
   # release:
@@ -168,56 +168,149 @@ jobs:
 
           # 常用LuCI插件选择:
           cat >> .config <<EOF
+
+          
+          CONFIG_TARGET_x86=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_Generic=y
+
+          CONFIG_LUCI_LANG_zh_Hans=y
+
+          CONFIG_PACKAGE_alsa-lib=y
+          CONFIG_PACKAGE_alsa-utils=y
+          CONFIG_PACKAGE_attr=y
+          CONFIG_PACKAGE_avahi-dbus-daemon=y
+          CONFIG_PACKAGE_banip=y
+          CONFIG_PACKAGE_bash=y
+          CONFIG_PACKAGE_boost-chrono=y
+          CONFIG_PACKAGE_boost-random=y
+          CONFIG_PACKAGE_ca-bundle=y
+
+          CONFIG_PACKAGE_confuse=y
+          CONFIG_PACKAGE_curl=y
+          CONFIG_PACKAGE_dbus=y
+          CONFIG_PACKAGE_e100-firmware=y
+          CONFIG_PACKAGE_fdisk=y
+          CONFIG_PACKAGE_forked-daapd=y
+          CONFIG_PACKAGE_glib2=y
+          CONFIG_PACKAGE_gzip=y
+          CONFIG_PACKAGE_hd-idle=y
+          CONFIG_PACKAGE_htop=y
+          CONFIG_PACKAGE_icu=y
+          CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+          CONFIG_PACKAGE_iptables-mod-extra=y
+          CONFIG_PACKAGE_iptables-mod-ipopt=y
+          CONFIG_PACKAGE_ipv6helper=y
+          CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
+          CONFIG_PACKAGE_ip6tables=y
+          CONFIG_PACKAGE_kmod-e100=y
+          CONFIG_PACKAGE_kmod-fs-btrfs=y
+          CONFIG_PACKAGE_kmod-fs-cifs=y
+          CONFIG_PACKAGE_kmod-fs-exfat=y
+          CONFIG_PACKAGE_kmod-fs-ext4=y
+          CONFIG_PACKAGE_kmod-fs-f2fs=y
+          CONFIG_PACKAGE_kmod-ifb=y
+          CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
+          CONFIG_PACKAGE_kmod-ipt-extra=y
+          CONFIG_PACKAGE_kmod-ipt-ipopt=y
+          CONFIG_PACKAGE_kmod-ipt-nat6=y
+          CONFIG_PACKAGE_kmod-irqbypass=y
+          CONFIG_PACKAGE_kmod-kvm-amd=y
+          CONFIG_PACKAGE_kmod-kvm-intel=y
+          CONFIG_PACKAGE_kmod-kvm-x86=y
+          CONFIG_PACKAGE_kmod-lib-zlib-deflate=y
+          CONFIG_PACKAGE_kmod-lib-zlib-inflate=y
+          CONFIG_PACKAGE_kmod-lib-zstd=y
+          CONFIG_PACKAGE_kmod-nf-nat6=y
+          CONFIG_PACKAGE_kmod-nls-base=y
+          CONFIG_PACKAGE_kmod-sit=y
+          CONFIG_PACKAGE_kmod-tun=y
+
+          CONFIG_PACKAGE_luci-base=y
           CONFIG_PACKAGE_luci-app-accesscontrol=y
-          CONFIG_PACKAGE_luci-app-adbyby-plus=y
           CONFIG_PACKAGE_luci-app-advanced-reboot=y
+          CONFIG_PACKAGE_luci-app-airplay2=y
           CONFIG_PACKAGE_luci-app-amule=y
           CONFIG_PACKAGE_luci-app-aria2=y
+          CONFIG_PACKAGE_luci-app-arpbind=y
           CONFIG_PACKAGE_luci-app-autoreboot=y
+          CONFIG_PACKAGE_luci-app-baidupcs-web=y
           CONFIG_PACKAGE_luci-app-banip=y
           CONFIG_PACKAGE_luci-app-commands=y
+          CONFIG_PACKAGE_luci-app-ddns=y
           CONFIG_PACKAGE_luci-app-filetransfer=y
           CONFIG_PACKAGE_luci-app-firewall=y
+          CONFIG_PACKAGE_luci-app-flowoffload=y
+          CONFIG_PACKAGE_luci-app-frpc=y
+          CONFIG_PACKAGE_luci-app-frps=y
+          CONFIG_PACKAGE_luci-app-hd-idle=y
+          CONFIG_PACKAGE_luci-app-ipsec-vpnd=y
           CONFIG_PACKAGE_luci-app-minidlna=y
+          CONFIG_PACKAGE_luci-app-music-remote-center=y
           CONFIG_PACKAGE_luci-app-nlbwmon=y
           CONFIG_PACKAGE_luci-app-openvpn=y
           CONFIG_PACKAGE_luci-app-openvpn-server=y
-          CONFIG_PACKAGE_luci-app-opkg=y
-         
           CONFIG_PACKAGE_luci-app-qbittorrent=y
+          CONFIG_PACKAGE_luci-app-qos=y
+          CONFIG_PACKAGE_luci-app-ramfree=y
           CONFIG_PACKAGE_luci-app-samba4=y
           CONFIG_PACKAGE_luci-app-ssr-plus=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_plugin=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
           CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
           CONFIG_PACKAGE_luci-app-statistics=y
           CONFIG_PACKAGE_luci-app-transmission=y
           CONFIG_PACKAGE_luci-app-ttyd=y
-          CONFIG_PACKAGE_luci-app-unblockmusic=y
-          
           CONFIG_PACKAGE_luci-app-uhttpd=y
+          CONFIG_PACKAGE_luci-app-unblockmusic=y
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
           CONFIG_PACKAGE_luci-app-vnstat=y
+          CONFIG_PACKAGE_luci-app-vsftpd=y
           CONFIG_PACKAGE_luci-app-wol=y
           CONFIG_PACKAGE_luci-app-wrtbwmon=y
           CONFIG_PACKAGE_luci-app-xlnetacc=y
-          CONFIG_PACKAGE_luci-base=y
-          
-          # CONFIG_PACKAGE_luci-app-aria2=y
-          # CONFIG_PACKAGE_luci-app-baidupcs-web=y
-          # CONFIG_PACKAGE_luci-app-docker=y
-          # CONFIG_PACKAGE_luci-app-frpc=y
-          # CONFIG_PACKAGE_luci-app-kodexplorer=y
-          
-          
-          # CONFIG_PACKAGE_luci-app-v2ray-server=y
-          # CONFIG_PACKAGE_luci-app-verysync=y
-          # CONFIG_PACKAGE_luci-app-webadmin=y
-          # CONFIG_PACKAGE_luci-app-wireguard=y
-          # CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          CONFIG_PACKAGE_luci-app-zerotier=y
+
+
+          CONFIG_PACKAGE_luci-lib-iptparser=y
+          CONFIG_PACKAGE_luci-ssl-openssl=y
+          CONFIG_PACKAGE_luci-theme-bootstrap=y
+          CONFIG_PACKAGE_nano=y
+          CONFIG_PACKAGE_qemu-ga=y
+
+          CONFIG_PACKAGE_screen=y
+          CONFIG_PACKAGE_sqlite3-cli=y
+          CONFIG_PACKAGE_tc=y
+          CONFIG_PACKAGE_terminfo=y
+          CONFIG_PACKAGE_tree=y
+          CONFIG_PACKAGE_uclibcxx=y
+          CONFIG_PACKAGE_unrar=y
+          CONFIG_PACKAGE_unzip=y
+          CONFIG_PACKAGE_vim-fuller=y
+          CONFIG_PACKAGE_virtio-console-helper=y
+          CONFIG_PACKAGE_vnstat=y
+          CONFIG_PACKAGE_vnstati=y
+          CONFIG_PACKAGE_wsdd2=y
+          # CONFIG_TARGET_IMAGES_GZIP is not set
+          # CONFIG_TARGET_ROOTFS_EXT4FS is not set
+          # CONFIG_TARGET_ROOTFS_TARGZ is not set
+
+          CONFIG_PACKAGE_default-settings=y
+          CONFIG_PACKAGE_dnsmasq-full=y
+          CONFIG_PACKAGE_htop=y
+          CONFIG_PACKAGE_ip-full=y
+          CONFIG_PACKAGE_ipset=y
+          CONFIG_PACKAGE_kmod-tcp-bbr=y
+          CONFIG_PACKAGE_wget=y
+          CONFIG_PACKAGE_qemu-ga=y
+          CONFIG_PACKAGE_zip=y
+          CONFIG_PACKAGE_bash=y
           EOF
 
           # LuCI主题:
