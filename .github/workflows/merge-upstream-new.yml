@@ -43,4 +43,6 @@ jobs:
     - name: Push Commits
       env:
         DOWNSTREAM_BRANCH: openwrt-19.07
-      run: git push origin $DOWNSTREAM_BRANCH --tags  
+      run : |
+        git add .
+        git push origin $DOWNSTREAM_BRANCH --tags
