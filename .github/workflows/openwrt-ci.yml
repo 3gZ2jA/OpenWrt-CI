@@ -277,7 +277,7 @@ jobs:
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
-	  du -h --max-depth=1 ./bin/targets  
+          du -h --max-depth=1 ./bin/targets  
 
       - name: Show disk space
         if: always()
