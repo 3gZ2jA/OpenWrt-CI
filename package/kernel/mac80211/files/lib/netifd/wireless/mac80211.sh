@@ -28,8 +28,9 @@ drv_mac80211_init_device_config() {
 	config_add_string path phy 'macaddr:macaddr'
 	config_add_string hwmode
 	config_add_string tx_burst
+	config_add_string distance
 	config_add_int beacon_int chanbw frag rts
-	config_add_int rxantenna txantenna antenna_gain txpower distance
+	config_add_int rxantenna txantenna antenna_gain txpower
 	config_add_boolean noscan ht_coex acs_exclude_dfs
 	config_add_array ht_capab
 	config_add_array channels
@@ -100,7 +101,6 @@ mac80211_hostapd_setup_base() {
 	json_select config
 
 	[ "$auto_channel" -gt 0 ] && channel=acs_survey
-	[ "$auto_channel" -gt 0 ] && json_get_values channel_list channels
 
 	[ "$auto_channel" -gt 0 ] && json_get_vars acs_exclude_dfs
 	[ -n "$acs_exclude_dfs" ] && [ "$acs_exclude_dfs" -gt 0 ] &&
@@ -108,6 +108,10 @@ mac80211_hostapd_setup_base() {
 
 	json_get_vars noscan ht_coex
 	json_get_values ht_capab_list ht_capab tx_burst
+	json_get_values channel_list channels
+
+	[ "$auto_channel" = 0 ] && [ -z "$channel_list" ] && \
+		channel_list="$channel"
 
 	set_default noscan 0
 
@@ -366,7 +370,7 @@ mac80211_get_addr() {
 	local phy="$1"
 	local idx="$(($2 + 1))"
 
-	head -n $(($macidx + 1)) /sys/class/ieee80211/${phy}/addresses | tail -n1
+	head -n $idx /sys/class/ieee80211/${phy}/addresses | tail -n1
 }
 
 mac80211_generate_mac() {
@@ -505,7 +509,7 @@ mac80211_iw_interface_add() {
 mac80211_prepare_vif() {
 	json_select config
 
-	json_get_vars ifname mode ssid wds powersave macaddr enable
+	json_get_vars ifname mode ssid wds powersave macaddr enable wpa_psk_file vlan_file
 
 	[ -n "$ifname" ] || ifname="wlan${phy#phy}${if_idx:+-$if_idx}"
 	if_idx=$((${if_idx:-0} + 1))
@@ -523,6 +527,12 @@ mac80211_prepare_vif() {
 	json_add_object data
 	json_add_string ifname "$ifname"
 	json_close_object
+
+	[ "$mode" == "ap" ] && {
+		[ -z "$wpa_psk_file" ] && hostapd_set_psk "$ifname"
+		[ -z "$vlan_file" ] && hostapd_set_vlan "$ifname"
+	}
+
 	json_select config
 
 	# It is far easier to delete and create the desired interface
@@ -781,6 +791,7 @@ mac80211_setup_vif() {
 	case "$mode" in
 		mesh)
 			wireless_vif_parse_encryption
+			[ -z "$htmode" ] && htmode="NOHT";
 			freq="$(get_freq "$phy" "$channel")"
 			if [ "$wpa" -gt 0 -o "$auto_channel" -gt 0 ] || chan_is_dfs "$phy" "$channel"; then
 				mac80211_setup_supplicant $vif_enable || failed=1
@@ -982,7 +993,7 @@ drv_mac80211_setup() {
 			add_ap=1
 			ubus wait_for hostapd
 			ubus call hostapd config_add "{\"iface\":\"$primary_ap\", \"config\":\"${hostapd_conf_file}\"}"
-			local hostapd_pid=$(ubus call service list '{"name": "hostapd"}' | jsonfilter -l 1 -e "@['hostapd'].instances['hostapd'].pid")
+			local hostapd_pid=$(ubus call service list '{"name": "wpad"}' | jsonfilter -l 1 -e "@['wpad'].instances['hostapd'].pid")
 			wireless_add_process "$hostapd_pid" "/usr/sbin/hostapd" 1
 		fi
 		ret="$?"
@@ -1037,12 +1048,12 @@ list_phy_interfaces() {
 }
 
 drv_mac80211_teardown() {
-	wireless_process_kill_all
+	json_select data
+	json_get_vars phy
+	json_select ..
 
-	for phy in `ls /sys/class/ieee80211/`; do
-		mac80211_interface_cleanup "$phy"
-		uci -q -P /var/state revert wireless._${phy}
-	done
+	mac80211_interface_cleanup "$phy"
+	uci -q -P /var/state revert wireless._${phy}
 }
 
 add_driver mac80211

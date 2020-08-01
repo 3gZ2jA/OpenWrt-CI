@@ -11,9 +11,9 @@ BOARD:=arc770
 BOARDNAME:=Synopsys DesignWare ARC 770D
 SUBTARGETS:=generic
 
-KERNEL_PATCHVER:=4.14
+KERNEL_PATCHVER:=5.4
 
-DEVICE_TYPE:=developerboard
+DEVICE_TYPE:=basic
 
 define Target/Description
 	Synopsys DesignWare boards
