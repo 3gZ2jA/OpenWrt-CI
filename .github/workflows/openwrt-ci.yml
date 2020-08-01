@@ -183,7 +183,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-statistics=y
           CONFIG_PACKAGE_luci-app-ttyd=y
-          CONFIG_PACKAGE_luci-app-unblockmusic=y
+          # CONFIG_PACKAGE_luci-app-unblockmusic=y
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
           CONFIG_PACKAGE_luci-app-vnstat=y
@@ -277,14 +277,6 @@ jobs:
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
-
-      - name: Fix error
-        if: success()
-        continue-on-error: true
-        run: |
-          mkdir -p ./build_dir/target-x86_64_musl/qemu-4.2.0/ipkg-install/usr/bin
-          cp ./build_dir/target-x86_64_musl/qemu-4.2.0/qemu-ga ./build_dir/target-x86_64_musl/qemu-4.2.0/ipkg-install/usr/bin
-          make -j$(nproc) || make -j1 V=s
           
 
       - name: Show disk space

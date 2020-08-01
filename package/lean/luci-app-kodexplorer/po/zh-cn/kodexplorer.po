@@ -1,5 +1,21 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: dingpengyu <dingpengyu06@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.3.1\n"
+
 msgid "KodExplorer"
 msgstr "可道云"
+
+msgid "Global Settings"
+msgstr "全局设置"
 
 msgid "KodExplorer is a fast and efficient private cloud and online document management system that provides secure, controllable, easy-to-use and highly customizable private cloud products for personal websites, enterprise private cloud deployment, network storage, online document management, and online office. With Windows style interface and operation habits, it can be used quickly without adaptation. It supports online preview of hundreds of common file formats and is extensible and easy to customize."
 msgstr "KodExplorer是一款快捷高效的私有云和在线文档管理系统，为个人网站、企业私有云部署、网络存储、在线文档管理、在线办公等提供安全可控，简便易用、可高度定制的私有云产品。采用windows风格界面、操作习惯，无需适应即可快速上手，支持几百种常用文件格式的在线预览，可扩展易定制。"
@@ -53,7 +69,7 @@ msgid "Click to update"
 msgstr "点击更新"
 
 msgid "Updating..."
-msgstr "更新中"
+msgstr "更新中..."
 
 msgid "Unexpected error"
 msgstr "意外错误"
@@ -62,13 +78,13 @@ msgid "Updating, are you sure to close?"
 msgstr "正在更新，你确认要关闭吗？"
 
 msgid "Downloading..."
-msgstr "下载中"
+msgstr "下载中..."
 
 msgid "Unpacking..."
-msgstr "解压中"
+msgstr "解压中..."
 
 msgid "Moving..."
-msgstr "移动中"
+msgstr "移动中..."
 
 msgid "The latest version:"
 msgstr "最新版本："
