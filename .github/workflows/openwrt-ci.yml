@@ -74,6 +74,7 @@ jobs:
       - name: Update feeds
         if: success()
         run: |
+          sed -i 's/#src-git/src-git/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
