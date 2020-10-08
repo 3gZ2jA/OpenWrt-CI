@@ -1,5 +1,3 @@
-/dts-v1/;
-
 #include "amazonse.dtsi"
 
 / {
@@ -96,7 +94,7 @@
 			};
 
 			partition@3ff200 {
-				label = "uboot_env";
+				label = "u-boot-env";
 				reg = <0x3ff200 0xc00>;
 				read-only;
 			};

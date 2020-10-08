@@ -1,5 +1,3 @@
-/dts-v1/;
-
 #include "vr9.dtsi"
 
 #include <dt-bindings/input/input.h>
@@ -203,7 +201,7 @@
 			};
 
 			partition@60000 {
-				label = "uboot-env";
+				label = "u-boot-env";
 				reg = <0x60000 0x20000>;
 				read-only;
 			};

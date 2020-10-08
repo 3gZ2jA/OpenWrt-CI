@@ -1,5 +1,3 @@
-/dts-v1/;
-
 #include "vr9_tplink_vr200.dtsi"
 
 / {
@@ -88,5 +86,5 @@
 			label = "vr200:blue:wps";
 			gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
 		};
-	};	
+	};
 };
