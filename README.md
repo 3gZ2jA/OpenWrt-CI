@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [English](README-en.md) ←
 
 # 借助 GitHub Actions 的 OpenWrt 在线集成自动编译.
@@ -61,8 +60,7 @@ P3TERX/Actions-OpenWrt 的优势在于, 其可以独立于文件库存在, 可�
 > ### 如何下载到编译完成的固件?
 
 进入`Actions`标签页后, 如果相应的集成活动顺利完成 (显示为绿色), 点击页面右上方的`Artifacts`即可看到你的固件 (通常是一个压缩包). 点击即可开始下载.
-=======
-![OpenWrt logo](/logo.svg)
+![OpenWrt logo](include/logo.png)
 
 OpenWrt Project is a Linux operating system targeting embedded devices. Instead
 of trying to create a single, static firmware, OpenWrt provides a fully
@@ -149,4 +147,3 @@ For a list of supported devices see the [OpenWrt Hardware Database](https://open
 ## License
 
 OpenWrt is licensed under GPL-2.0
->>>>>>> c4beac9ea2e1b568d99800fce921eaf269c42361
