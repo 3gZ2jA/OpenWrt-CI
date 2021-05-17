@@ -65,6 +65,12 @@ jobs:
           # ln -s /mnt/openwrt/feeds ./feeds
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
 
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.16.4
+          
+
       - name: Show disk space
         if: success()
         run: |
@@ -72,12 +78,6 @@ jobs:
           echo "Space usage:"
           echo "======================="
           df -h
-          echo "======================="
-          wget https://golang.org/dl/go1.16.4.linux-amd64.tar.gz
-          sudo rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.4.linux-amd64.tar.gz
-          export PATH=$PATH:/usr/local/go/bin
-          sudo export PATH=$PATH:/usr/local/go/bin
-          go version
           echo "======================="
 
 
