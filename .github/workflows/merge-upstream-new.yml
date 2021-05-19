@@ -13,12 +13,12 @@ on:
     branches: 
       - openwrt-19.07
   schedule:
-    - cron: 50/30 * * * *
+    - cron: 50 1/23 * * *
 
 jobs:
   merge:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-last
 
     steps:
 
