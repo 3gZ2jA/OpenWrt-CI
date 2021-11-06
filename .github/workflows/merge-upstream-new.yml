@@ -33,6 +33,7 @@ jobs:
       run : |
         git config --global user.email "lqbz@live.com"
         git config --global user.name "3gZ2jA"
+        git config pull.rebase false
 
     - name: Load upstream commits
       run : |
